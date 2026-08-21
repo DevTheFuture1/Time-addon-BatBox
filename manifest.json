@@ -2,7 +2,7 @@
     "id": "weltzeit_anzeige",
     "name": "Weltzeit-Anzeige",
     "version": "1.0.0",
-    "author": "Dein Name",
+    "author": "Luci",
     "description": "Zeigt die aktuelle Uhrzeit in mehreren Zeitzonen gleichzeitig an, live aktualisiert.",
     "category": "System",
     "github_url": "https://github.com/DevTheFuture1/Time-addon-BatBox",
