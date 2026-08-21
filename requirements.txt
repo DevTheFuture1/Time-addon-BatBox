@@ -1,0 +1,2 @@
+# Dieses Addon benötigt keine externen Pakete.
+# Es nutzt ausschließlich die Python-Standardbibliothek (zoneinfo).
