@@ -9,7 +9,13 @@ Python 3.9), keine externen Abhängigkeiten notwendig.
 from datetime import datetime
 from zoneinfo import ZoneInfo, available_timezones
 
-from core.addon_base import BatAddon
+try:
+    # So importiert die echte Toolbox die Basisklasse zur Laufzeit.
+    from core.addon_base import BatAddon
+except ImportError:
+    # Fallback, damit dieses Addon auch OHNE laufende Toolbox lokal
+    # getestet werden kann (siehe bat_toolbox_addon_base_REFERENCE.py).
+    from bat_toolbox_addon_base_REFERENCE import BatAddon
 
 # Voreingestellte Staedte/Zeitzonen, die beim ersten Start angezeigt werden.
 DEFAULT_CITIES = [
@@ -150,3 +156,23 @@ class WeltzeitAddon(BatAddon):
 
         layout.addStretch(1)
         return widget
+
+
+# ----------------------------------------------------------------
+# Lokaler Testlauf: `python main.py` fuehrt einen einfachen Rauchtest
+# aus, OHNE dass die echte Toolbox installiert sein muss.
+# ----------------------------------------------------------------
+if __name__ == "__main__":
+    try:
+        from PySide6.QtWidgets import QApplication
+        import sys
+        _app = QApplication.instance() or QApplication(sys.argv)
+    except ImportError:
+        _app = None
+
+    addon = WeltzeitAddon()
+    addon.on_load()
+    widget = addon.get_widget()
+    print(f"Addon '{addon.name}' (v{addon.version}) erfolgreich instanziiert.")
+    print(f"get_widget() lieferte: {widget!r}")
+    addon.on_unload()
